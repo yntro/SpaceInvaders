@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1509374439 source:c:\users\marcius\desktop\spaceinvaders\main.cpp
+	<iostream>
+	<windows.h>
+
