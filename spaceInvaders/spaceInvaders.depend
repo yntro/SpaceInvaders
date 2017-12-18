@@ -1,5 +1,8 @@
 # depslib dependency file v1.0
-1509374439 source:c:\users\marcius\desktop\spaceinvaders\main.cpp
+1513613026 source:c:\users\marcius\desktop\spaceinvaders\main.cpp
 	<iostream>
 	<windows.h>
+	<Game.h>
+
+1513613118 c:\users\marcius\desktop\spaceinvaders\include\game.h
 

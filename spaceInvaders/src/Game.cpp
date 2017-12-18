@@ -1,90 +1,89 @@
 #include "Game.h"
+#include "windows.h"
 #include <iostream>
-#include <windows.h>
-
-Game::Game()
-{
-    //ctor
-}
-
+using namespace std;
 Game::~Game()
 {
     //dtor
 }
-
-void Game::getmob_count(int mob_count)
+void Game::draw(char arr[n][m], int x)
 {
-    this.mob_count = mob_count;
-}
-
-static void Game::MainGame()
-{
-
-using namespace std;
-const int n = 10, m = 20;
-void draw(char arr[n][m], int y)
-{
+    /// clears screen;
     system("CLS");
-    arr[n-1][y]='X';
+    /// sets player char;
+    arr[n-1][x]='X';
+    /// draws;
     for(int i =0; i <n; i++)
     {
         for(int p = 0; p<m; p++)
             cout << arr[i][p];
         cout << endl;
     }
+    /// stops the game so it doesn't redraw too fast;
     Sleep(50);
 }
-
-int main()
+Game::Game()
 {
-///draw
-    char space[n][m];
-    /// x and y inversed
-    int y = m/2, tempy, bulx, buly, score=0, mob=10;
-    bool moved = false, shot=false;
-    ///Fill
+    ///Fills field with space;
     for(int i =0; i <n; i++)
         for(int p = 0; p<m; p++)
             space[i][p]=' ';
-    draw(space, y);
+            draw(space, x);
+}
+//main game function
+void Game::main_game()
+{
+    ///mobs
+    space[5][8]='O';
+    space[5][7]='O';
+    space[5][6]='O';
+    space[5][5]='O';
+    space[5][4]='O';
+    space[0][8]='O';
+    space[0][7]='O';
+    space[0][6]='O';
+    space[0][5]='O';
+    space[0][4]='O';
     ///move
     while(mob!=0)
     {
         ///move
-        tempy = y;
+        tempx = x;
         if(GetAsyncKeyState(VK_RIGHT))
         {
-            y++;
+            x++;
             moved=true;
-            if(y>n-1)
+            if(x>n-1)
             {
-                y--;
+                x--;
                 moved=false;
             }
 
         }
-
+        ///move left
         if(GetAsyncKeyState(VK_LEFT))
         {
 
-            y--;
+            x--;
             moved=true;
-             if(y<0)
+            if(x<0)
             {
-                y++;
+                x++;
                 moved=false;
             }
         }
+        ///shoot
         if(GetAsyncKeyState(VK_SPACE)&&!shot)
         {
             buly = n-2;
-            bulx = y;
+            bulx = x;
             shot=true;
             space[buly][bulx]='.';
         }
+        ///checks if player moved, if moved fills last positions with blank;
         if(moved)
         {
-            space[n-1][tempy]=' ';
+            space[n-1][tempx]=' ';
             moved =false;
         }
         if(shot)
@@ -110,11 +109,13 @@ int main()
                 space[buly][bulx]='.';
             }
         }
-        draw(space, y);
+        //redraws
+        draw(space, x);
     }
+    //clears
     system("CLS");
+    // end game text
     cout << "GG WP!" << endl;
     cout << "Score - "<<score << endl;
     system("pause");
-
 }
